@@ -7,7 +7,11 @@
         "minification",
         "transpiled",
         "online",
-        "username"
+        "username",
+        "Facebook",
+        "CORS",
+        "XMLHttpRequest",
+        "plugin"
     ],
     "documentTypes": [
         "markdown",

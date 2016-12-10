@@ -69,7 +69,7 @@ NPM
 Client-side web applications are usually made using the standard approach with writing the js logic in scripts (or using third-party libraries) and including them in some of the pages that require them. The dependency management of such dependencies can be difficult and error prone. Moreover, it's not easily maintainable. Systems that require external dependencies are using packages-manager systems to help with the management of such dependencies. Examples of such systems are - apt-get (Linux), nuget (.NET). For client-side applications this is NPM. NPM will be used for the development of the library as it supports both dev dependencies and application dependencies.
 
 Typescript
-JavaScript is the language of choice for writing the client-side logic of web applications. However it lacks type support and the security that languages such as C# and Java offer. Typescript is a superset of JavaScript and provides types and OOP to javascript. Its very similar to C# and makes use of interfaces and abstract classes. Everything is then compile-time checked, before being transpiled to JavaScript. Moreover the transpiled JavaScript is optimized and validated. The community around the project is very large and has helped to develop a very good tool to writing large enterprise web applications.
+JavaScript is the language of choice for writing the client-side logic of web applications. However it lacks type support and the security that languages such as C# and Java offer. Typescript is a superset of JavaScript and provides types and OOP to JavaScript. Its very similar to C# and makes use of interfaces and abstract classes. Everything is then compile-time checked, before being transpiled to JavaScript. Moreover the transpiled JavaScript is optimized and validated. The community around the project is very large and has helped to develop a very good tool to writing large enterprise web applications.
 
 Webpack
 Client-side applications must be fast and small in size. With eternal dependencies this gets difficult to achieve as most of them come pre-bundled and cannot be shrunk. Webpack takes care of this by traversing through the required and using the method 'tree-shaking' excludes the code that is not needed. It can be integrated with typescript to provide minification and bundling of the client-side code.
@@ -79,15 +79,35 @@ Asp.net Core
 EntitiyFramework core
 Asp.net Web api
 
+NOTE !!! When referencing "route" in the bellow documentation, a reference to a browser navigation to a specific URL is meant (for the client side APP). And when referencing server endpoint, a reference to an action or resource the server provides is meant. 
+
 **Data**
 State management - ngrx
 
-For the p
+**Validation**
 
 **Diagnostics**
 Error handling - client & server
 
 **Security**
+
+// login/logout/register 
+// FB, GOOGLE, email confirm
+// Authentication
+// Authroziation
+// Roles
+// CORS
+// cookies
+// endpoints
+default user (not deletable)
+// current user data
+user management
+// check is logged in
+// Microsoft identity model 
+
+// Route restrictions
+// Component/Directive restrictions
+
 As this application will require working with sensitive data, there must be some restrictions placed on the users not to access different parts of the applications thus restricting their access. Therefore the application will house functionalities that prevent users from tampering with restricted data such as Data & View access restrictions. Furthermore the security concept will be split into two parts - Authentication & Authorization.
 
 Authentication
@@ -95,51 +115,44 @@ With authentication a user can be recognized as an existing registered user. The
 
 There will be only two publicly visible server endpoints - /login and /register. Every other endpoint will require the user to be authenticated. On the client there will be only two routes that the user can access - /login and /register. The have the same name as the corresponding server endpoints that they communicate with for the same purpose. These routes need to be available to anonymous users, so that they can register and login.
 
+User model
+Asp.net Core provides an out of the box identity management library named "Microsoft Identify v3"[ref]. The library has integration with EntityFramework Core[ref] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims[ref] and even two factor authentication[ref]. Moreover, this library can plug into the Asp.net Core request pipeline[ref] and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested. 
+// TODO: insert image here
+
+User management
+In order to manage the users and their roles, an interface is needed where the Admin(s) will have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid will be limited to changing the roles of users, adding, deleting users.
+
+Future work
+Future developments may inroduce an ability to block a user or even resend an email conformation if the user was not able to receive it in the first place.
+
+Login
 Users will be able to login to the system using the login interface, located at the "/login" route. The user will be able to enter an email and password and try to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. The login screen will require a valid email to be entered using a regular expression to match the valid sequence of characters.
 
-The /login route will be used 
+The /login route will be used as the default route to which the user is navigated if he is not authenticated. This is possible by using route Guards that are invoked before each route is triggered. This way the app ensures that no unauthenticated user will be able to access views that he is not allowed to.
 
-Alternatively the user can directly communicate with the server api by sending an HTTP POST request to /login containing the user credentials.
+Logout
+Upon a successful login, the server will issue a cookie which identifies the user. The actual data that the cookie contains is encrypted and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie will be sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.
+In order to initiate a "logout", a request to the server endpoint "/logout" must be made which will return a response that instructs the browser to dispose the cookie. This can be achieved through the Logout button that is available as part of every screen of the client side app. Although the logout endpoint requires no parameters, it still requires the HTTP POST verb, as the post verb implies a change on the server - namely logging out the user.
 
-Additionally users may want to register with the system if he does not have an account. By requesting /register or navigating to the register route from the /login route. 
+Alternatively the user can directly communicate with the server API by sending an HTTP POST request to /login containing the user credentials.
 
-Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system will provide the ability to add specific roles to users. Using this approach on the server, requests will be restricted to specific roles and will deny access to whomever does not have these. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden). 
+Registration
+Users may want to register with the system if he does not have an account. By requesting /register or navigating to the register route from the /login route. The register screen requires the user to enter data such as an email, password, confirm password and username. All of these input fields are checked on the client to provide a quick feedback to whether the data that the user entered is valid. This is done using html 5 and Angular2 validators. The submit button is enabled only when all of the required data is valid. Because not all of the validation can happen on the client, some validation checks need to be performed on the server. Such validation checks include if the username or email is already taken. If one of these is, the server returns a status code of 400 (Bad Request) with a response message indicating the exact problem, so that the app can provide feedback to the user on what went wrong.
 
+Additionally all of the data is further validated on the server, because the user can always bypass the client web application and issue requests directly.
 
-login/logout/register 
-FB, GOOGLE, email confirm
-Authentication
-Authroziation
-Roles
-CORS
-cookies
-endpoints
-default user (not deletable)
-current user data
-user management
-check is logged in
-Microsoft identity model 
+User meta-data
+The meta-data for the current user will be retrieved via a /current endpoint that will be accessible by every authenticated user. Each time the application stars, this endpoint will be requested to check if the user is logged in or not. If the response from the server is 401 (Unauthorized), then the user will be redirected to the /login screen. If he is however, he will be redirected to the /home screen.
 
-Route restrictions
-Component/Directive restrictions
+Future work
+Future development of the application might include Facebook and Google login, which would be a lot easier for the user. He would just need to confirm that the application is a trusted source and he will have an account set-up for him without needing to provide his credentials again. Another feature would be to actually send an email confirmation letter that contains a verification code only for this user. Doing so prevents the system from being flooded by bots.
 
-Authentication
-Authentication will happen on a token based principle. This will be exchanged against a validated email and password. If the username and password are not valid, the system would answer with a status code of 400, indicating that something is wrong with the request, but it should not specify which of the two parameters is invalid as this might lead to a security issue. 
+Authorization
+Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system will provide the ability to add specific roles to users. Using this approach on the server, requests will be restricted to specific roles and will deny access to whomever does not have these. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden).
 
-The token will be an encrypted JWT token and it will be send along with every request (except the login request) in the Authorization header of the request.
-
-The advantage to using tokens is that they are not subject to CSRF attacks as cookies are. A CSRF attack occurs when a third party phishing site hijacs the current users cookies and therefor hijacks his session. 
-
-Authroziation
-Users will be able to have one or more roles. There must be an admin role, who has all the permissions to manage the data of the site. He will also be able to manage other users and their roles as well. The admin will be able to see and manage everything. Other roles will have restricted views (some of the angular components will not be visible to them), based on the permissions that they have.
+In order to guard routes on the client that the user does not have access to, a route Guard will be used to validate the current user. The current user's roles will be compared to the one the route allows and if he does not satisfy the route condition, he will be redirected to a 404 page. Another requirement of the system is to have specific portions of html hidden for some roles. This is implemented by using an angular directive that takes the current user meta-data (roles) and validates it against a predefined set. If the condition is false no html is rendered.   
 
 CORS
-Cross origin resource sharing policy. By default the site's api will not be accessible from other domains. Thus there will be a specific handler for requests comming from other sites and the server will cut off such requests returnign a status code of 400.
+A resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. For example, an HTML page served from http://domain-a.com makes an <img> src request for http://domain-b.com/image.jpg. Many pages on the web today load resources like CSS stylesheets, images and scripts from separate domains.
 
-
-Security restriction diagram !!
-
-
-
-
-
+The Cross-Origin Resource Sharing (CORS) mechanism gives web servers cross-domain access controls, which enable secure cross-domain data transfers. Modern browsers use CORS in an API container - such as XMLHttpRequest or Fetch - to mitigate risks of cross-origin HTTP requests. By default the site's api will not be accessible from other domains. Thus there will be a specific handler for requests coming from other sites and the server will cut off such requests returning a status code of 400 (Bad Request).
