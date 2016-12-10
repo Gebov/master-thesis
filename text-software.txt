@@ -1,0 +1,45 @@
+Introduction
+
+SPA applications
+SPA stands for single page application and is a technique used for building web apps. It is a widely used approach for building web applications as an alternative to the traditional server side rendering frameworks like Asp.Net or JSP. Building a  SPA app requires a framework that will manage all of the data-binding, navigation, security restrictions and user interaction. The two most populat frameworks that are mostly adopted by the community and have support for building large enterprise applications are Angular2 and Reactjs. Such frameworks are build from scratch with performance and memory management in consideration. For instance Angular2 supports Ahead of time compilation of html templates. For this project Angular2 will be used as it has a larger community build around it and is a rewrite from AngularJs (the v1 version of the framework). Using Angular is preferable, because it was build from scratch to address all of the issues the v1 (AngularJS) version had.
+
+In a SPA app all the resources, required to load the page are either retreived on the first page load or are lazy loaded. Lazy-loading means that resources are loaded on demand when needed. This is the preferable method as this way the resources that are required for the initial page load are smaller. This helps for faster loading of resources and improves the overall performance of the web app not only on startup, but during the whole lifecycle of the application. 
+
+One of the diffrences between SPA apps and other frameworks such as MVC is that at no time does the client go to the server to do a full page render. Resources are retrieved, modified and consumed by the client framework. This brings to a seemless transition between the diffrent sections of the site.
+
+Another diffrence is that all of the UI logic happens on the client. The server will be unaware of the client and will know only how to provide the data to whomever requests it and has permission to access it. The benefit of this aproach is that this solution is scalable and loosely coupled. It's scalable, because whenever the load increases the servers can be increased to handle more client requests. It's loosely coupled because the UI (that is a spearate app) can connect to any back-end. The responsibilities of the server consist of serving the data via web APIs and a the HTTP REST protocol. 
+
+NPM
+Client-side web applications are usually made using the standard approach with writing the js logic in scripts (or using third-party libraries) and including them in some of the pages that reqiure them. The dependency management of such dependencies can be difficult and error prone. Moreover, it's not easily maintainable. Systems that require external dependencies are using packages-manager systems to help with the management of such dependencies. Examples of such systems are - apt-get (Linux), nuget (.NET). For client-side applications this is NPM. NPM will be used for the development of the library as it supports both dev dependencies and application dependencies.
+
+Typescript
+Javascript is the language of choice for writing the client-side logic of web applications. However it lacks type support and the security that languages such as C# and Java offer. Typescript is a supersetof javascript and provides types and OOP to javascript. Its very similar to C# and makes use of interfaces and abstract classes. Everything is then compile-time checked, before beeing transpiled to javascript. Moreover the transpiled Javascript is optimized and validated. The community around the project is very large and has helped to develop a very good tool to writing large enterprise web applications.
+
+Webpack
+Client-side applications must be fast and small in size. With eternal dependencies this gets difficult to achieve as most of them come pre-bundled and cannot be shrunk. Webpack takes care of this by traversing through the required and using the method 'tree-shaking' excludes the code that is not needed. It can be integrated with typescript to provide minification and bundling of the client-side code.
+
+Angular2
+Building a client-side application requries a framework that will back it up in areas such as data-binding, performance and speed. It also will provide scalabilty and maintainability to the application.
+
+**Security**
+
+Authentication
+Authentication will happen on a token based principle. This will be exchanged against a validated email and password. If the username and password are not valid, the system would answer with a status code of 400, indicating that something is wrong with the request, but it should not specify which of the two parameters is invalid as this might lead to a security issue. 
+
+The token will be an encrypted JWT token and it will be send along with every request (except the login request) in the Authorization header of the request.
+
+The advantage to using tokens is that they are not subject to CSRF attacks as cookies are. A CSRF attack occurs when a third party phishing site hijacs the current users cookies and therefor hijacks his session. 
+
+Authroziation
+Users will be able to have one or more roles. There must be an admin role, who has all the permissions to manage the data of the site. He will also be able to manage other users and their roles as well. The admin will be able to see and manage everything. Other roles will have restricted views (some of the angular components will not be visible to them), based on the permissions that they have.
+
+CORS
+Cross origin resource sharing policy. By default the site's api will not be accessible from other domains. Thus there will be a specific handler for requests comming from other sites and the server will cut off such requests returnign a status code of 400.
+
+
+Security restriction diagram !!
+
+
+
+
+

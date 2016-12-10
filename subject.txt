@@ -1,0 +1,120 @@
+﻿Система за администраране посещения, продажби и дневен оборот на фитнес студио. Функнционалностите, които ще включва са:
+- Отчитане на дневен оборот
+- Продажба на продукти
+- Продажба на нова предплатена карта
+- Изчисляване на хонорар на преподавател
+- Вписване на посещение на клиент с карта
+- Следене на валидност на картите
+- Архив на посещенията на клиента
+- Възможност за преглед на програма и запазване на час
+- Административен панел за данните (при налагане на корекция)
+
+Приложението ще е уеб-базирано, като смятам да използвам следните технологий:
+
+Client side:
+Angular2 - https://angular.io/
+RxJs - http://reactivex.io/rxjs/
+WebPack - https://webpack.github.io/
+TypeScript - https://www.typescriptlang.org/
+
+Server side:
+Asp.Net Core/ Asp.Net 4.6.2 + C# - https://www.asp.net/
+EF ORM - https://www.asp.net/entity-framework
+MySQL/SQL server/SQLLite/In memory DB - което е удобно и може да се ползва най-лесно
+
+Source control:
+git + github.com
+
+
+
+Card management
+- CRUD operations on cards
+- Each card has X visits 
+-- can they be adjusted ?
+
+-- will daily visits count or only sold items for the daily income ?
+-- will we keep the user to which we sold the product ?
+-- do you want a scheduler to list the events for this week ?
+-- how will the teacher income be calculated ?
+-- what is new client ?
+
+Card
+-- Id
+-- OwnerId?
+-- SoldOn
+-- ExpiresOn (automatically calculcated)
+-- CardType (based on configuration)
+-- VisitCount
+
+Visit
+-- Id
+-- EventId
+
+CardVisit
+-- CardId
+
+AnonymousVisit
+-- First & Last name
+
+Event (better name)
+-- Id
+-- TeacherId
+-- Name
+-- InformationText (cancelled, trainer will be missing)
+-- Duration (minutes)
+-- StartsAt (hours & date)
+-- Recurrence Rule (Ical ?)
+
+TODO: make recurring
+
+
+User
+-- Id
+-- Name
+-- Email (unique)
+-- Password
+-- Username
+-- CreatedOn
+
+Role
+-- Id
+-- Name
+
+Student, Teacher, Admin
+
+Product
+-- Id
+-- ProductTypeId
+-- SoldOn
+-- Quantity
+
+ProductType
+-- Id
+-- Name
+-- Price
+
+
+/login
+- a place to login the user/teacher/admin
+
+/
+ -> redirect to events
+
+/admin/products
+- lists products with the option to sell them
+
+/admin/events
+- administration of events. if events are present then the event for the current time is selected
+- creation of event. input of visits
+
+/admin/cards
+- lists the cards by user
+- can search by user
+- can update the card information
+- can create new cards (sell cards)
+
+/admin/daily-income
+- lists the sold products, cards (items) for the day
+
+/admin/teacher-income
+-- search by name of the teacher and calculated income (based)

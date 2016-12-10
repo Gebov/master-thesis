@@ -1,0 +1,2 @@
+https://github.com/dwyl/learn-json-web-tokens
+https://stormpath.com/blog/jwt-the-right-way
