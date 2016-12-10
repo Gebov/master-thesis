@@ -1,0 +1,20 @@
+{
+    "language": "en_US",
+    "ignoreWordsList": [
+        "Angular2",
+        "html",
+        "workflow",
+        "minification",
+        "transpiled",
+        "online",
+        "username"
+    ],
+    "documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "ignoreRegExp": [],
+    "ignoreFileExtensions": [],
+    "checkInterval": 5000
+}

@@ -1,27 +1,127 @@
+Abstract
+
 Introduction
+- describe the motivativation for building this project 
+- describe the three diffrent roles
+
+Goal
+The purpose of this thesis is to construct a multi tier web application for automating processes of a gym and provide the following functionality:
+1. Ability to login/logout users.
+    - Users will be able to stay logged for longer periods of time by using a "remember me" option
+    - Future work can have a FB/Google/Microsoft login.
+2. Ability to register a user.
+    - Future work will require the user to confirm his email.
+3. Have three different roles to distinguish users - Admin, Instructor and Student
+4. Ability to manage users (Admin)
+5. Ability to sell items - goods & cards (Admin, Teacher)
+6. Ability to track validity of cards (Admin, Teacher)
+7. Ability to view past visits and how much visits a student has left (Admin, Teacher, Student)
+    - Student will be able to view only his own visits
+    - Admin & Teacher will be able to check-in a user when he has completed his training.
+    - Future work may have a bar code/card reader that is integrated to work with the system.
+    - 
+8. Ability to view the week program and reserve a spot
+    
+
+Practical applications
+The main advantage of this project is that it will be entirely web-based and will require no installation on local computers. Users will be intuitively guided through the interface and this will not be required to enter the data onto plain sheets of paper. Owners(Admin) can track this information in a central place and not have to resort to constantly require reports from their Employees(Teachers). The system will limit their margin for errors as it will have validation and expose limited functionality based on the current role of the user. The users of the such an application may be all kinds of studios, who wish to track their students.
+
+Future work may even expand the project to house not only a single studio, but multiple studios. Each studio will be able to manage it's own users and track user statistics.
+
+Contributions
+The above mentioned web application has been successfully build by leveraging on the capabilities of Angular2 and Asp.net Core and was later successfully tested in a live scenario of a yoga studio, where the users were able to track their visits online. 
+
+Previous work
+
+Technologies
+
+Client side
 
 SPA applications
-SPA stands for single page application and is a technique used for building web apps. It is a widely used approach for building web applications as an alternative to the traditional server side rendering frameworks like Asp.Net or JSP. Building a  SPA app requires a framework that will manage all of the data-binding, navigation, security restrictions and user interaction. The two most populat frameworks that are mostly adopted by the community and have support for building large enterprise applications are Angular2 and Reactjs. Such frameworks are build from scratch with performance and memory management in consideration. For instance Angular2 supports Ahead of time compilation of html templates. For this project Angular2 will be used as it has a larger community build around it and is a rewrite from AngularJs (the v1 version of the framework). Using Angular is preferable, because it was build from scratch to address all of the issues the v1 (AngularJS) version had.
+SPA stands for single page application and is a technique used for building web apps. It is a commonly used approach for building web applications compared to the traditional server side rendering frameworks like Asp.Net or JSP.
 
-In a SPA app all the resources, required to load the page are either retreived on the first page load or are lazy loaded. Lazy-loading means that resources are loaded on demand when needed. This is the preferable method as this way the resources that are required for the initial page load are smaller. This helps for faster loading of resources and improves the overall performance of the web app not only on startup, but during the whole lifecycle of the application. 
+In a SPA app all the resources, required to load the page are either retrieved on the first page load or are lazy loaded. Lazy-loading means that resources are loaded on demand when needed. This is the preferable method as this way the resources that are required for the initial page load are smaller. This helps for faster loading of resources and improves the overall performance of the web app not only on startup, but during the whole life-cycle of the application. Resources are retrieved in small optimized chunks from the server and can vary in size and content. For instance, a resource can contain JavaScript logic for customizing the UI elements` behaviour or it can contain .html file templates for data-binding to data. Such resources may even contain a mix of the previously stated resources combined into a "bundle". Using this approach, a module loader framework such as webpack is required to help retrieve the files from the bundle. One of the differences between SPA apps and other frameworks such as MVC is that at no time does the client go to the server to do a full page render. Resources are retrieved, modified and consumed by the client framework. This helps to achieve a seemless transition between the different sections of the site.
 
-One of the diffrences between SPA apps and other frameworks such as MVC is that at no time does the client go to the server to do a full page render. Resources are retrieved, modified and consumed by the client framework. This brings to a seemless transition between the diffrent sections of the site.
+Another difference is that all of the UI logic happens on the client. The server will be unaware of the client and will know only how to provide the data to it, provided that the current user has permission to access it. The benefit of this approach is that this solution is scalable and loosely coupled. It's scalable, because whenever the load increases the servers can be increased to handle more client requests. It's loosely coupled because the UI can connect to any of the serves that provide the needed APIs.  
 
-Another diffrence is that all of the UI logic happens on the client. The server will be unaware of the client and will know only how to provide the data to whomever requests it and has permission to access it. The benefit of this aproach is that this solution is scalable and loosely coupled. It's scalable, because whenever the load increases the servers can be increased to handle more client requests. It's loosely coupled because the UI (that is a spearate app) can connect to any back-end. The responsibilities of the server consist of serving the data via web APIs and a the HTTP REST protocol. 
+Building a  SPA app requires a framework that will manage all of the data-binding, navigation, security restrictions and user interaction. The two most popular frameworks that are mostly adopted by the community and have support for building large enterprise applications are Angular2 and React. These frameworks are build from start with performance and memory management in consideration. For instance, Angular2 supports Ahead of time compilation (AOT) of html templates. For this project Angular2 will be used as it has a larger community build around it and is a rewrite from AngularJs (the v1 version of the framework). Using Angular is preferable, because it was build from scratch to address all of the issues the v1 (AngularJS) version had.
+
+All of the data is retrieved via web services using the http protocol. The data is in the form of JSON as it is lightweight data structure and can be consumed by a wide variety of clients including JavaScript clients like browsers. 
+The responsibilities of the server consist of serving the data via web APIs and a the HTTP REST protocol.
+
+Angular2
+Angular2 is a modern framework for building scalable, testable, memory & CPU performing client web applications. It's official release data was on 15.09.2016 and is relatively stable for use. It provides the necessary functionalities which can be used to quickly build a web application, some of which are described bellow.
+
+Data binding
+Since the data and html are separated, there needs to be a mechanism for providing the data to the templates, so they can be populated with data. Angular provides declarative data binding with the html template syntax, that lets us use directives and curly braces or even write JavaScript code in the templates (not recommended).
+
+Routing
+The browser is a familiar model of application navigation. We enter a URL in the address bar and the browser navigates to a corresponding page. We click links on the page and the browser navigates to a new page. We click the browser's back and forward buttons and the browser navigates backward and forward through the history of pages we've seen.
+
+The Angular Router ("the router") borrows from this model. It can interpret a browser URL as an instruction to navigate to a client-generated view and pass optional parameters along to the supporting view component to help it decide what specific content to present. We can bind the router to links on a page and it will navigate to the appropriate application view when the user clicks a link. We can navigate imperatively when the user clicks a button, selects from a drop box, or in response to some other stimulus from any source. And the router logs activity in the browser's history journal so the back and forward buttons work as well.
+
+Routing enables us to navigate to different parts of the app, without doing a full page reload. Behind each route lies an entry component that renders the html output on the browser. This component may be composed of child components, which may have child components of their own. This way a component tree structure is build that in the end outputs html to the browser.
+
+Modularity
+Angular Modules help organize an application into cohesive blocks of functionality. They consolidate components, directives and pipes into cohesive blocks of functionality, each focused on a feature area, application business domain, workflow, or common collection of utilities. Modules can also add services to the application. Such services might be internally-developed such as the application logger. They can come from outside sources such as the Angular router and Http client. Modules can be loaded eagerly when the application starts. They can also be lazy loaded asynchronously by the router.
 
 NPM
-Client-side web applications are usually made using the standard approach with writing the js logic in scripts (or using third-party libraries) and including them in some of the pages that reqiure them. The dependency management of such dependencies can be difficult and error prone. Moreover, it's not easily maintainable. Systems that require external dependencies are using packages-manager systems to help with the management of such dependencies. Examples of such systems are - apt-get (Linux), nuget (.NET). For client-side applications this is NPM. NPM will be used for the development of the library as it supports both dev dependencies and application dependencies.
+Client-side web applications are usually made using the standard approach with writing the js logic in scripts (or using third-party libraries) and including them in some of the pages that require them. The dependency management of such dependencies can be difficult and error prone. Moreover, it's not easily maintainable. Systems that require external dependencies are using packages-manager systems to help with the management of such dependencies. Examples of such systems are - apt-get (Linux), nuget (.NET). For client-side applications this is NPM. NPM will be used for the development of the library as it supports both dev dependencies and application dependencies.
 
 Typescript
-Javascript is the language of choice for writing the client-side logic of web applications. However it lacks type support and the security that languages such as C# and Java offer. Typescript is a supersetof javascript and provides types and OOP to javascript. Its very similar to C# and makes use of interfaces and abstract classes. Everything is then compile-time checked, before beeing transpiled to javascript. Moreover the transpiled Javascript is optimized and validated. The community around the project is very large and has helped to develop a very good tool to writing large enterprise web applications.
+JavaScript is the language of choice for writing the client-side logic of web applications. However it lacks type support and the security that languages such as C# and Java offer. Typescript is a superset of JavaScript and provides types and OOP to javascript. Its very similar to C# and makes use of interfaces and abstract classes. Everything is then compile-time checked, before being transpiled to JavaScript. Moreover the transpiled JavaScript is optimized and validated. The community around the project is very large and has helped to develop a very good tool to writing large enterprise web applications.
 
 Webpack
 Client-side applications must be fast and small in size. With eternal dependencies this gets difficult to achieve as most of them come pre-bundled and cannot be shrunk. Webpack takes care of this by traversing through the required and using the method 'tree-shaking' excludes the code that is not needed. It can be integrated with typescript to provide minification and bundling of the client-side code.
 
-Angular2
-Building a client-side application requries a framework that will back it up in areas such as data-binding, performance and speed. It also will provide scalabilty and maintainability to the application.
+Server side
+Asp.net Core
+EntitiyFramework core
+Asp.net Web api
+
+**Data**
+State management - ngrx
+
+For the p
+
+**Diagnostics**
+Error handling - client & server
 
 **Security**
+As this application will require working with sensitive data, there must be some restrictions placed on the users not to access different parts of the applications thus restricting their access. Therefore the application will house functionalities that prevent users from tampering with restricted data such as Data & View access restrictions. Furthermore the security concept will be split into two parts - Authentication & Authorization.
+
+Authentication
+With authentication a user can be recognized as an existing registered user. The user has already passed through the registration process (which may even include email confirmation) and the system can confirm that he is a valid user. If the system does not find such a user present, all requests coming from this user will return with a status code of 401 (Unauthorized).
+
+There will be only two publicly visible server endpoints - /login and /register. Every other endpoint will require the user to be authenticated. On the client there will be only two routes that the user can access - /login and /register. The have the same name as the corresponding server endpoints that they communicate with for the same purpose. These routes need to be available to anonymous users, so that they can register and login.
+
+Users will be able to login to the system using the login interface, located at the "/login" route. The user will be able to enter an email and password and try to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. The login screen will require a valid email to be entered using a regular expression to match the valid sequence of characters.
+
+The /login route will be used 
+
+Alternatively the user can directly communicate with the server api by sending an HTTP POST request to /login containing the user credentials.
+
+Additionally users may want to register with the system if he does not have an account. By requesting /register or navigating to the register route from the /login route. 
+
+Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system will provide the ability to add specific roles to users. Using this approach on the server, requests will be restricted to specific roles and will deny access to whomever does not have these. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden). 
+
+
+login/logout/register 
+FB, GOOGLE, email confirm
+Authentication
+Authroziation
+Roles
+CORS
+cookies
+endpoints
+default user (not deletable)
+current user data
+user management
+check is logged in
+Microsoft identity model 
+
+Route restrictions
+Component/Directive restrictions
 
 Authentication
 Authentication will happen on a token based principle. This will be exchanged against a validated email and password. If the username and password are not valid, the system would answer with a status code of 400, indicating that something is wrong with the request, but it should not specify which of the two parameters is invalid as this might lead to a security issue. 
