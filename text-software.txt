@@ -74,6 +74,9 @@ JavaScript is the language of choice for writing the client-side logic of web ap
 Webpack
 Client-side applications must be fast and small in size. With eternal dependencies this gets difficult to achieve as most of them come pre-bundled and cannot be shrunk. Webpack takes care of this by traversing through the required and using the method 'tree-shaking' excludes the code that is not needed. It can be integrated with typescript to provide minification and bundling of the client-side code.
 
+Kendo grid
+There are third-party components[ref] that provide a grid view. The benefit of using such components is that they have some functionality that is very usefull - filtering, sorting and pagination[ref] of data. One such component is the kendo grid component[ref]. It is rich in functionality and can be reused in several views of this application.    
+
 Server side
 Asp.net Core
 EntitiyFramework core
@@ -102,6 +105,7 @@ Error handling - client & server
 default user (not deletable)
 // current user data
 user management
+- services
 // check is logged in
 // Microsoft identity model 
 
@@ -120,10 +124,12 @@ Asp.net Core provides an out of the box identity management library named "Micro
 // TODO: insert image here
 
 User management
-In order to manage the users and their roles, an interface is needed where the Admin(s) will have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid will be limited to changing the roles of users, adding, deleting users.
+In order to manage the users and their roles, an interface is needed where the Admin(s) will have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid will be limited to changing the roles of users, adding, deleting users and searching by username & email. 
+
+This functionality will be restricted to the Admin role only.
 
 Future work
-Future developments may inroduce an ability to block a user or even resend an email conformation if the user was not able to receive it in the first place.
+Future developments may introduce an ability to block a user or even resend an email conformation if the user was not able to receive it in the first place.
 
 Login
 Users will be able to login to the system using the login interface, located at the "/login" route. The user will be able to enter an email and password and try to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. The login screen will require a valid email to be entered using a regular expression to match the valid sequence of characters.
