@@ -134,6 +134,10 @@ Future developments may introduce an ability to block a user or even resend an e
 Login
 Users will be able to login to the system using the login interface, located at the "/login" route. The user will be able to enter an email and password and try to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. The login screen will require a valid email to be entered using a regular expression to match the valid sequence of characters.
 
+Users can check the keep me logged in checkbox when logging in the system. This checkbox instructs the server to issue a "session" cookie that will live even when the browser is closed and opend some time later again. However the cookie will have an expiration date to limit it's lifetime.
+
+Upon the first request when the application loads, the app will do a "sniffing" call to check if the user is logged in by requesting the user's meta-data from the server. THis sniffing call sends the cookie data with it. If the cookie is not present or it has expired the response of the status code of this service call is 401. This redirects the user to the login screen.
+
 The /login route will be used as the default route to which the user is navigated if he is not authenticated. This is possible by using route Guards that are invoked before each route is triggered. This way the app ensures that no unauthenticated user will be able to access views that he is not allowed to.
 
 Logout
@@ -149,6 +153,8 @@ Additionally all of the data is further validated on the server, because the use
 
 User meta-data
 The meta-data for the current user will be retrieved via a /current endpoint that will be accessible by every authenticated user. Each time the application stars, this endpoint will be requested to check if the user is logged in or not. If the response from the server is 401 (Unauthorized), then the user will be redirected to the /login screen. If he is however, he will be redirected to the /home screen.
+
+
 
 Future work
 Future development of the application might include Facebook and Google login, which would be a lot easier for the user. He would just need to confirm that the application is a trusted source and he will have an account set-up for him without needing to provide his credentials again. Another feature would be to actually send an email confirmation letter that contains a verification code only for this user. Doing so prevents the system from being flooded by bots.
