@@ -103,7 +103,7 @@ Error handling - client & server
 
 ### User model
 <p align="justify">Asp.net Core provides an out of the box identity management library named [Microsoft Identify v3][10]. The library has integration with [EntityFramework Core][11] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims[ref] and even two factor authentication[ref]. Moreover, this library can plug into the Asp.net Core request pipeline[ref] and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested.</p>
-<p align="justify">![User model](images/identity-schema.png)</p>
+![User model](images/identity-schema.png)
 
 ### User management
 <p align="justify">In order to manage the users and their roles, an interface is needed where the Admin(s) can have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid is limited to changing the roles of users, adding, deleting and browsing users. </p>
@@ -127,7 +127,7 @@ Error handling - client & server
 <p align="justify">The /login route is used as the default route to which the user is navigated if he is not authenticated. This is possible by using route [Guards][3] that are invoked before each route is triggered. This way the app ensures that no unauthenticated user is able to access views that he is not allowed to.</p>
 
 <p align="justify">Future development of the application might include Facebook and Google login, which would be a lot easier for the user. He would just need to confirm that the application is a trusted source and he will have an account set-up for him without needing to provide his credentials again. Another feature would be to actually send an email confirmation letter that contains a verification code only for this user. Doing so prevents the system from being flooded by bots.</p>
-<p align="justify">![is-logged-in sequence](images/authentication.png)</p>
+![is-logged-in sequence](images/authentication.png)
 
 ### Logout
 <p align="justify">Upon a successful login, the server issues a cookie which identifies the user. The actual data that the cookie contains is encrypted with a private key[link] and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie is sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.</p>
