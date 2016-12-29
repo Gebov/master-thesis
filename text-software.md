@@ -150,7 +150,7 @@ Error handling - client & server
 ## Authorization
 <p align="justify">Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system provides the ability to add specific roles to users. Using this approach on the server, requests are restricted to specific roles and deny access to whomever does not have such. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden).</p>
 
-<p align="justify">In order to guard routes on the client that the user does not have access to, a "[Guard][3] will be used to validate the current user. The current user's roles are compared to the one the route allows and if the user does not satisfy the route roles, he is redirected to a 404 page. Another requirement of the system is to have specific portions of html hidden for some roles. This is implemented by using an [angular directive][12] that takes the current user meta-data (roles) and validates it against a predefined set. If the condition is false no html is rendered.</p>
+<p align="justify">In order to guard routes on the client that the user does not have access to, a [Guard][3] will be used to validate the current user. The current user's roles are compared to the one the route allows and if the user does not satisfy the route roles, he is redirected to a 404 page. Another requirement of the system is to have specific portions of html hidden for some roles. This is implemented by using an [angular directive][12] that takes the current user meta-data (roles) and validates it against a predefined set. If the condition is false no html is rendered.</p>
 
 ## CORS
 
@@ -159,15 +159,15 @@ Error handling - client & server
 <p align="justify">A resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. For example, an HTML page served from http://domain-a.com makes an <img> src request for http://domain-b.com/image.jpg. Many pages on the web today load resources like CSS stylesheets, images and scripts from separate domains.</p>
 
 [1]: https://en.wikipedia.org/wiki/Single-page_application "Spa applications"
-[2]: https://webpack.github.io/ "Webpack"
+[2]: https://webpack.github.io "Webpack"
 [3]: https://angular.io/docs/ts/latest/guide/router.html#!#can-activate-guard "Angular2 Guards"
 [4]: https://www.comodo.com/resources/small-business/digital-certificates2.php "Singing"
 [5]: https://angular.io "Angular2"
-[6]: https://facebook.github.io/react/ "React"
+[6]: https://facebook.github.io/react "React"
 [7]: https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html "Angular component"
 [8]: https://www.npmjs.com "Npm"
-[9]: https://www.typescriptlang.org/ "Typescript"
+[9]: https://www.typescriptlang.org "Typescript"
 [10]: https://github.com/aspnet/Identity "Microsoft identify v3"
-[11]: https://docs.microsoft.com/en-us/ef/ "EF core"
+[11]: https://docs.microsoft.com/en-us/ef "EF core"
 [12]: https://angular.io/docs/ts/latest/guide/attribute-directives.html "Angular directives"
-[13]: http://www.telerik.com/kendo-angular-ui/components/grid/ "Kendo grid"
+[13]: http://www.telerik.com/kendo-angular-ui/components/grid "Kendo grid"
