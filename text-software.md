@@ -84,7 +84,7 @@ Building a  SPA app requires a framework that can manage all of the data-binding
 <p align="justify">Client-side applications must be fast and small in size. With eternal dependencies this gets difficult to achieve as most of them come pre-bundled and cannot be shrunk. [Webpack][2] takes care of this by traversing through the required and using the method 'tree-shaking' excludes the code that is not needed. It can be integrated with typescript to provide minification and bundling of the client-side code.</p>
 
 ### Kendo grid
-<p align="justify">There are third-party components[ref] that provide a grid view. The benefit of using such components is that they have some functionality that is very usefull - filtering, sorting and pagination[ref] of data. One such component is the kendo grid component[ref]. It is rich in functionality and can be reused in several views of this application.</p>
+<p align="justify">There are third-party components that provide a grid view. The benefit of using such components is that they have some functionality that is very usefull - filtering, sorting and pagination[ref] of data. One such component is the [kendo grid component][13]. It is rich in functionality and can be reused in several views of this application.</p>
 
 TODO:
 Server side
@@ -102,7 +102,7 @@ Error handling - client & server
 <p align="justify">As this application requires working with sensitive data, there must be some restrictions placed on the users not to access different parts of the applications thus restricting their access. Therefore the application houses functionalities that prevent users from tampering with restricted data such as Data and View access restrictions. Furthermore the security concept is split into two parts - Authentication and Authorization.</p>
 
 ### User model
-<p align="justify">Asp.net Core provides an out of the box identity management library named [Microsoft Identify v3][10]. The library has integration with [EntityFramework Core][11] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims[ref] and even two factor authentication[ref]. Moreover, this library can plug into the Asp.net Core request pipeline[ref] and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested.</p>
+<p align="justify">Asp.net Core provides an out of the box identity management library named [Microsoft Identify v3][10]. The library has integration with [EntityFramework Core][11] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims and even two factor authentication. Moreover, this library can plug into the Asp.net Core request pipeline and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested.</p>
 ![User model](images/identity-schema.png)
 
 ### User management
@@ -130,7 +130,7 @@ Error handling - client & server
 ![is-logged-in sequence](images/authentication.png)
 
 ### Logout
-<p align="justify">Upon a successful login, the server issues a cookie which identifies the user. The actual data that the cookie contains is encrypted with a private key[link] and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie is sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.</p>
+<p align="justify">Upon a successful login, the server issues a cookie which identifies the user. The actual data that the cookie contains is encrypted with a [private key][4] and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie is sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.</p>
 
 <p align="justify">In order to initiate a "logout", a request to the server endpoint "/logout" must be made which returns a response that instructs the browser to dispose the cookie. This can be achieved through the Logout button that is available as part of every screen of the client side app. Although the logout endpoint requires no parameters, it still requires the HTTP POST verb, as the post verb implies a change on the server - namely logging out the user.</p>
 
@@ -158,7 +158,6 @@ Error handling - client & server
 
 <p align="justify">A resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. For example, an HTML page served from http://domain-a.com makes an <img> src request for http://domain-b.com/image.jpg. Many pages on the web today load resources like CSS stylesheets, images and scripts from separate domains.</p>
 
-Links
 [1]: https://en.wikipedia.org/wiki/Single-page_application "Spa applications"
 [2]: https://webpack.github.io/ "Webpack"
 [3]: https://angular.io/docs/ts/latest/guide/router.html#!#can-activate-guard "Angular2 Guards"
@@ -171,3 +170,4 @@ Links
 [10]: https://github.com/aspnet/Identity "Microsoft identify v3"
 [11]: https://docs.microsoft.com/en-us/ef/ "EF core"
 [12]: https://angular.io/docs/ts/latest/guide/attribute-directives.html "Angular directives"
+[13]: http://www.telerik.com/kendo-angular-ui/components/grid/ "Kendo grid"

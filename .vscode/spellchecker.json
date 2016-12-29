@@ -18,7 +18,8 @@
         "webpack",
         "checkbox",
         "validators",
-        "HTML5"
+        "HTML5",
+        "Kendo"
     ],
     "documentTypes": [
         "markdown",
