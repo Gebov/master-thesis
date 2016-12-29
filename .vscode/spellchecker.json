@@ -1,17 +1,21 @@
 {
     "language": "en_US",
     "ignoreWordsList": [
+        "username",
         "Angular2",
         "html",
         "workflow",
         "minification",
         "transpiled",
         "online",
-        "username",
         "Facebook",
         "CORS",
         "XMLHttpRequest",
-        "plugin"
+        "plugin",
+        "apps",
+        "APIs",
+        "AngularJS",
+        "webpack"
     ],
     "documentTypes": [
         "markdown",
