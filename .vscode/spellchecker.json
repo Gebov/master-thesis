@@ -15,7 +15,10 @@
         "apps",
         "APIs",
         "AngularJS",
-        "webpack"
+        "webpack",
+        "checkbox",
+        "validators",
+        "HTML5"
     ],
     "documentTypes": [
         "markdown",

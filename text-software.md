@@ -92,8 +92,6 @@ Asp.net Core
 EntitiyFramework core
 Asp.net Web api
 
-NOTE !!! When referencing "route" in the bellow documentation, a reference to a browser navigation to a specific URL is meant (for the client side APP). And when referencing server endpoint, a reference to an action or resource the server provides is meant. 
-
 ## State management
 
 ## Diagnostics
@@ -101,62 +99,64 @@ NOTE !!! When referencing "route" in the bellow documentation, a reference to a 
 Error handling - client & server
 
 ## Security
-<p align="justify">As this application will require working with sensitive data, there must be some restrictions placed on the users not to access different parts of the applications thus restricting their access. Therefore the application will house functionalities that prevent users from tampering with restricted data such as Data & View access restrictions. Furthermore the security concept will be split into two parts - Authentication and Authorization.</p>
-
-### Authentication
-<p align="justify">With authentication a user can be recognized as an existing registered user. The user has already passed through the registration process (which may even include email confirmation) and the system can confirm that he is a valid user. If the system does not find such a user present, all requests coming from this user will return with a status code of 401 (Unauthorized).</p>
-
-<p align="justify">There will be only two publicly visible server endpoints - /login and /register. Every other endpoint will require the user to be authenticated. On the client there will be only two routes that the user can access - /login and /register. The have the same name as the corresponding server endpoints that they communicate with for the same purpose. These routes need to be available to anonymous users, so that they can register and login.</p>
+<p align="justify">As this application requires working with sensitive data, there must be some restrictions placed on the users not to access different parts of the applications thus restricting their access. Therefore the application houses functionalities that prevent users from tampering with restricted data such as Data and View access restrictions. Furthermore the security concept is split into two parts - Authentication and Authorization.</p>
 
 ### User model
-<p align="justify">Asp.net Core provides an out of the box identity management library named "Microsoft Identify v3"[ref]. The library has integration with EntityFramework Core[ref] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims[ref] and even two factor authentication[ref]. Moreover, this library can plug into the Asp.net Core request pipeline[ref] and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested.</p>
-![User model](images/identity-schema.png)
+<p align="justify">Asp.net Core provides an out of the box identity management library named [Microsoft Identify v3][10]. The library has integration with [EntityFramework Core][11] and has the ability to automatically set up the database schema for roles and users. The library provides functionality such as managing users, roles, custom claims[ref] and even two factor authentication[ref]. Moreover, this library can plug into the Asp.net Core request pipeline[ref] and automatically login users based on the cookies that they provide. another big advantage is that it is very well tested.</p>
+<p align="justify">![User model](images/identity-schema.png)</p>
 
-User management
-In order to manage the users and their roles, an interface is needed where the Admin(s) will have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid will be limited to changing the roles of users, adding, deleting users. 
+### User management
+<p align="justify">In order to manage the users and their roles, an interface is needed where the Admin(s) can have the ability to change user access or resolve user conflicts. For instance - assign a role to a user or delete a user. The functionality of the grid is limited to changing the roles of users, adding, deleting and browsing users. </p>
 
-This functionality will be restricted to the Admin role only. Additionally the current admin that is editing the users will not be able to see himself in the grid so that he cannot delete himself.
+<p align="justify">This functionality is restricted to the Admin role only. Additionally the current admin that is editing the users is not able to see himself in the grid so that he cannot delete himself.</p>
 
-Future work
-Future developments may introduce an ability to block a user or even resend an email conformation if the user was not able to receive it in the first place.
+## Authentication
+<p align="justify">With authentication a user can be recognized as an existing registered user. The user has already passed through the registration process (which may even include email confirmation) and the system can confirm that he is a valid user. If the system does not find such a user present, all requests coming from this user will return with a status code of 401 (Unauthorized).</p>
 
-Login
-Users are able to login to the system using the login interface, located at the "/login" route. The user is able to enter an email and password and attempts to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. By limiting the error information, hacker bots will be more troubled to guess the exact combination required for a successful login. The login screen will require a valid email to be entered using a regular expression to match the valid sequence of characters.
+<p align="justify">There are only two publicly visible server endpoints - /login and /register. Every other endpoint requires the user to be authenticated. On the client there are only two routes that the user can access - /login and /register. They have the same name as the corresponding server endpoints that they communicate with for the same purpose. These routes need to be available to anonymous users, so that they can register and login.</p>
 
-Users can check the "keep me logged in checkbox" when logging in the system. This checkbox instructs the server to issue a "session" cookie that will live even when the browser is closed. This way, when opening the browser again in the future this cookie may still be valid and can be reused for authentication. However, the cookie will have an expiration date to limit it's lifetime.
+### Login
+<p align="justify">Users are able to login to the system using the login interface, located at the "/login" route. The user is able to enter an email and password and attempts to authenticate with the system. If the user provides invalid credentials then the server should respond with a status code of 400 (Bad request) and optionally return a response message that something is wrong with either the username or password, but not specifying which. By limiting the error information, hacker bots will be more troubled to guess the exact combination required for a successful login. The login screen requires a valid email to be entered using a regular expression to match the valid sequence of characters.</p>
 
-The client application keeps track of the state of the current user - whether he is logged in. Upon a successful authentication this a flag is set to true. This flag is checked on every route request to the client application. It will be set to false when the cookie expires or the user logges out(here the whole user state is destroyed).
+<p align="justify">Users can check the "keep me logged in checkbox" when logging in the system. This checkbox instructs the server to issue a "session" cookie that lives even when the browser is closed. This way, when opening the browser again in the future ,this cookie may still be valid and can be reused for authentication. However, the cookie has an expiration date to limit it's lifetime.</p>
 
-Upon the first request when the client application loads, the app will do a "sniffing" call to check if the user is logged in by requesting the user's meta-data from the server. This sniffing call sends the cookie data with it. The sending of the cookie happens automatically and is performend by the browser. If the cookie is not present or it has expired, the response of the status code of this service call is 401. This automatically redirects the user to the login screen. Every request that returns with a status code of 401, will automatically redirect the user to the /login route and present a challange (in the form of username & password prompt).
+<p align="justify">The client application keeps track of the state of the current user (whether the user is logged in). Upon a successful authentication, a flag is set to true indicating the success. This flag is checked on every route request to the client application. It is set to false when the cookie expires or the user initiates a logout(here the whole user state is destroyed).</p>
 
-The /login route will be used as the default route to which the user is navigated if he is not authenticated. This is possible by using route Guards[link] that are invoked before each route is triggered. This way the app ensures that no unauthenticated user will be able to access views that he is not allowed to.
+<p align="justify">Upon the first request when the client application loads, the app does a "sniffing" call to check if the user is logged in by requesting the user's meta-data from the server. This sniffing call sends the cookie data with it. The sending of the cookie happens automatically and is performed by the browser. If the cookie is not present or it has expired, the response of the status code of this service call is 401. This automatically redirects the user to the login screen. Every request that returns with a status code of 401, automatically redirects the user to the /login route and presents a challenge (in the form of username and password prompt).</p>
 
-Logout
-Upon a successful login, the server will issue a cookie which identifies the user. The actual data that the cookie contains is encrypted with a private key[link] and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie will be sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.
-In order to initiate a "logout", a request to the server endpoint "/logout" must be made which will return a response that instructs the browser to dispose the cookie. This can be achieved through the Logout button that is available as part of every screen of the client side app. Although the logout endpoint requires no parameters, it still requires the HTTP POST verb, as the post verb implies a change on the server - namely logging out the user.
+<p align="justify">The /login route is used as the default route to which the user is navigated if he is not authenticated. This is possible by using route [Guards][3] that are invoked before each route is triggered. This way the app ensures that no unauthenticated user is able to access views that he is not allowed to.</p>
 
-Alternatively the user can directly communicate with the server API by sending an HTTP POST request to /login containing the user credentials.
+<p align="justify">Future development of the application might include Facebook and Google login, which would be a lot easier for the user. He would just need to confirm that the application is a trusted source and he will have an account set-up for him without needing to provide his credentials again. Another feature would be to actually send an email confirmation letter that contains a verification code only for this user. Doing so prevents the system from being flooded by bots.</p>
+<p align="justify">![is-logged-in sequence](images/authentication.png)</p>
 
-Registration
-Users may want to register with the system if he does not have an account. By requesting /register or navigating to the register route from the /login route. The register screen requires the user to enter data such as an email, password, confirm password and username. All of these input fields are checked on the client to provide a quick feedback to whether the data that the user entered is valid. This is done using html 5 and Angular2 validators. The submit button is enabled only when all of the required data is valid. Because not all of the validation can happen on the client, some validation checks need to be performed on the server. Such validation checks include if the username or email is already taken. If one of these is, the server returns a status code of 400 (Bad Request) with a response message indicating the exact problem, so that the app can provide feedback to the user on what went wrong.
+### Logout
+<p align="justify">Upon a successful login, the server issues a cookie which identifies the user. The actual data that the cookie contains is encrypted with a private key[link] and only the server has the ability do decrypt it as he is the owner of the key used for encryption/decryption. This cookie is sent with each request to the server (handled automatically by the browser), so that the server can identify the user and authenticate him without requiring his email and password again.</p>
 
-Additionally all of the data is further validated on the server, because the user can always bypass the client web application and issue requests directly.
+<p align="justify">In order to initiate a "logout", a request to the server endpoint "/logout" must be made which returns a response that instructs the browser to dispose the cookie. This can be achieved through the Logout button that is available as part of every screen of the client side app. Although the logout endpoint requires no parameters, it still requires the HTTP POST verb, as the post verb implies a change on the server - namely logging out the user.</p>
 
-User meta-data
-The meta-data for the current user will be retrieved via a /current endpoint that will be accessible by every authenticated user. Each time the application stars, this endpoint will be requested to check if the user is logged in or not. If the response from the server is 401 (Unauthorized), then the user will be redirected to the /login screen. If he is however, he will be redirected to the previously requested route.
+<p align="justify">Alternatively the user can directly communicate with the server API by sending an HTTP POST request to /login containing the user credentials.</p>
 
-Future work
-Future development of the application might include Facebook and Google login, which would be a lot easier for the user. He would just need to confirm that the application is a trusted source and he will have an account set-up for him without needing to provide his credentials again. Another feature would be to actually send an email confirmation letter that contains a verification code only for this user. Doing so prevents the system from being flooded by bots.
+## Registration
+<p align="justify">Users may want to register with the system if they do not have an account. This can be achieved by requesting /register or navigating to the register page from the login page. The register screen requires the user to enter data such as an email, password, confirm password and username. All of these input fields are checked on the client side to provide a quick feedback to whether the data that the user entered is valid. This is done using HTML5 and Angular2 validators. The submit button is enabled only when all of the required data is valid. Because not all of the validation can happen on the client, some validation checks need to be performed on the server. Such validation checks include if the username or email is already taken. If one of these is, the server returns a status code of 400 (Bad Request) with a response message indicating the exact problem, so that the app can provide feedback to the user on what went wrong.</p>
 
-Authorization
-Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system will provide the ability to add specific roles to users. Using this approach on the server, requests will be restricted to specific roles and will deny access to whomever does not have these. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden).
+<p align="justify">Additionally all of the data is further validated on the server, because the user can always bypass the client web application and issue requests directly.</p>
 
-In order to guard routes on the client that the user does not have access to, a "RouteGuard"[link] will be used to validate the current user. The current user's roles will be compared to the one the route allows and if he does not satisfy the route condition, he will be redirected to a 404 page. Another requirement of the system is to have specific portions of html hidden for some roles. This is implemented by using an angular directive that takes the current user meta-data (roles) and validates it against a predefined set. If the condition is false no html is rendered.   
+### Future work
+<p align="justify">Future developments may introduce an ability to block a user or even resend an email conformation if the user was not able to receive it in the first place.</p>
 
-CORS
-A resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. For example, an HTML page served from http://domain-a.com makes an <img> src request for http://domain-b.com/image.jpg. Many pages on the web today load resources like CSS stylesheets, images and scripts from separate domains.
+### User meta-data
+<p align="justify">The meta-data for the current user is retrieved via a /current endpoint that is accessible by every authenticated user. Each time the application starts, this endpoint is requested to check if the user is logged in or not. If the response from the server is 401 (Unauthorized), then the user is redirected to the /login screen. If he is however, he is redirected to the initial requested route.</p>
 
-The Cross-Origin Resource Sharing (CORS) mechanism gives web servers cross-domain access controls, which enable secure cross-domain data transfers. Modern browsers use CORS in an API container - such as XMLHttpRequest or Fetch - to mitigate risks of cross-origin HTTP requests. By default the site's api will not be accessible from other domains. Thus there will be a specific handler for requests coming from other sites and the server will cut off such requests returning a status code of 400 (Bad Request).
+## Authorization
+<p align="justify">Authorization limits the rights the user has to specific resources - for instance sensitive data. In order to have a proper Authorization mechanism, the system provides the ability to add specific roles to users. Using this approach on the server, requests are restricted to specific roles and deny access to whomever does not have such. Leveraging the HTTP protocol, all requests coming from a user that doesn't have the proper permissions will have a response of 403 (Forbidden).</p>
+
+<p align="justify">In order to guard routes on the client that the user does not have access to, a "[Guard][3] will be used to validate the current user. The current user's roles are compared to the one the route allows and if the user does not satisfy the route roles, he is redirected to a 404 page. Another requirement of the system is to have specific portions of html hidden for some roles. This is implemented by using an [angular directive][12] that takes the current user meta-data (roles) and validates it against a predefined set. If the condition is false no html is rendered.</p>
+
+## CORS
+
+<p align="justify">The Cross-Origin Resource Sharing (CORS) mechanism gives web servers cross-domain access controls, which enable secure cross-domain data transfers. Modern browsers use CORS in an API container - such as XMLHttpRequest or Fetch - to mitigate risks of cross-origin HTTP requests. By default the site's api will not be accessible from other domains. Thus there will be a specific handler for requests coming from other sites and the server will cut off such requests returning a status code of 400 (Bad Request).</p>
+
+<p align="justify">A resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. For example, an HTML page served from http://domain-a.com makes an <img> src request for http://domain-b.com/image.jpg. Many pages on the web today load resources like CSS stylesheets, images and scripts from separate domains.</p>
 
 Links
 [1]: https://en.wikipedia.org/wiki/Single-page_application "Spa applications"
@@ -168,3 +168,6 @@ Links
 [7]: https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html "Angular component"
 [8]: https://www.npmjs.com "Npm"
 [9]: https://www.typescriptlang.org/ "Typescript"
+[10]: https://github.com/aspnet/Identity "Microsoft identify v3"
+[11]: https://docs.microsoft.com/en-us/ef/ "EF core"
+[12]: https://angular.io/docs/ts/latest/guide/attribute-directives.html "Angular directives"
