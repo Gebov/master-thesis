@@ -1,10 +1,11 @@
-Abstract
+# Abstract 
 
-Introduction
+## Introduction
+TODO: 
 - describe the motivativation for building this project 
 - describe the three diffrent roles
 
-Goal
+## Goal
 The purpose of this thesis is to construct a multi tier web application for automating processes of a gym and provide the following functionality:
 1. Ability to login/logout users.
     - Users will be able to stay logged for longer periods of time by using a "remember me" option
@@ -19,28 +20,27 @@ The purpose of this thesis is to construct a multi tier web application for auto
     - Student will be able to view only his own visits
     - Admin & Teacher will be able to check-in a user when he has completed his training.
     - Future work may have a bar code/card reader that is integrated to work with the system.
-    - 
 8. Ability to view the week program and reserve a spot
-    
 
-Practical applications
-The main advantage of this project is that it will be entirely web-based and will require no installation on local computers. Users will be intuitively guided through the interface and this will not be required to enter the data onto plain sheets of paper. Owners(Admin) can track this information in a central place and not have to resort to constantly require reports from their Employees(Teachers). The system will limit their margin for errors as it will have validation and expose limited functionality based on the current role of the user. The users of the such an application may be all kinds of studios, who wish to track their students.
+
+## Practical applications
+The main advantage of this project is that it is entirely web-based and requires no installation on local computers. Users will be intuitively guided through the interface and thus not required to enter the data onto plain sheets of paper. Owners(Admin) tracks this information in a central place and not have to resort to constantly require reports from their Employees(Teachers). The system will is implemented with validation and proper error handling in mind. It as well exposes limited functionality based on the current role of the user. The users of the an application may be all kinds of studios, who wish to digitize their business.
 
 Future work may even expand the project to house not only a single studio, but multiple studios. Each studio will be able to manage it's own users and track user statistics.
 
-Contributions
+## Contributions
 The above mentioned web application has been successfully build by leveraging on the capabilities of Angular2 and Asp.net Core and was later successfully tested in a live scenario of a yoga studio, where the users were able to track their visits online. 
 
-Previous work
+## Previous work
 
-Technologies
+## Technologies (client)
 
-Client side
+### SPA applications
+[SPA][1] stands for single page application and is a technique used for building web applications. It is a commonly used and widespread method that is beginning to outshine the traditional server side rendering frameworks like Asp.Net or JSP.
 
-SPA applications
-SPA stands for single page application and is a technique used for building web apps. It is a commonly used approach for building web applications compared to the traditional server side rendering frameworks like Asp.Net or JSP.
-
+<p align="justify">
 In a SPA app all the resources, required to load the page are either retrieved on the first page load or are lazy loaded. Lazy-loading means that resources are loaded on demand when needed. This is the preferable method as this way the resources that are required for the initial page load are smaller. This helps for faster loading of resources and improves the overall performance of the web app not only on startup, but during the whole life-cycle of the application. Resources are retrieved in small optimized chunks from the server and can vary in size and content. For instance, a resource can contain JavaScript logic for customizing the UI elements` behaviour or it can contain .html file templates for data-binding to data. Such resources may even contain a mix of the previously stated resources combined into a "bundle". Using this approach, a module loader framework such as webpack is required to help retrieve the files from the bundle. One of the differences between SPA apps and other frameworks such as MVC is that at no time does the client go to the server to do a full page render. Resources are retrieved, modified and consumed by the client framework. This helps to achieve a seemless transition between the different sections of the site.
+</p>
 
 Another difference is that all of the UI logic happens on the client. The server will be unaware of the client and will know only how to provide the data to it, provided that the current user has permission to access it. The benefit of this approach is that this solution is scalable and loosely coupled. It's scalable, because whenever the load increases the servers can be increased to handle more client requests. It's loosely coupled because the UI can connect to any of the serves that provide the needed APIs.  
 
@@ -151,5 +151,6 @@ The Cross-Origin Resource Sharing (CORS) mechanism gives web servers cross-domai
 
 
 Links
-Guard - https://angular.io/docs/ts/latest/guide/router.html#!#can-activate-guard
-Encryption, private key - https://www.comodo.com/resources/small-business/digital-certificates2.php
+[1]: https://en.wikipedia.org/wiki/Single-page_application "Spa applications"
+[2]: https://angular.io/docs/ts/latest/guide/router.html#!#can-activate-guard "Angular2 Guards"
+[3]: https://www.comodo.com/resources/small-business/digital-certificates2.php "Singing"
