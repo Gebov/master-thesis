@@ -1,0 +1,48 @@
+Sehr geehrte Damen und Herren. Vielen Dank für das Kommen heute. Heute werde ich ihnen eine Präsentation nach für meine Meisterarbeit vorzustellen. Ich werde gerne alle Fragen Sie am Ende der Präsentation beantworten.
+
+Los geht's.
+
+Idee & Requirements
+
+Woher kommt die Idee?
+Ich gehe oft in ein Studio, wo keine Software vorhanden ist. Dort habe Ich  mit dem Manager gesprochen und er sagte, dass oft Fehler gemacht wurden und sie brauchte Hilfe, um den Prozess zu automatisieren.
+
+
+Die Anforderungen, die er hatte, sind die folgenden:
+-> Möglichkeit, Kartenvorlagen für die verschiedenen Angebote des Studios zu definieren
+-> Fähigkeit für die Benutzer sich einzuloggen und zu registrieren
+-> Überwachung des Einkommens für einen bestimmten Zeitraum
+-> Die Überwachung der Besuche von Administratoren und Besucher
+-> Administration
+
+
+Also dachte ich, es wäre eine gute Idee zu versuchen ihr Geschäft zu automatisieren mit der Entwicklung einer Anwendung. Die Anwendung würde mit den neuesten Trends in der Software-Entwicklung gebaut werden
+
+Die Architectur
+
+Zuerst werden wir uns die Architektur anschauen. 
+Die Anwendung ist in drei Schichten unterteilt.
+PresentationsLogik schicht - Erbaut als SPA-Anwendung, die im Browser lebt. Diese andwendung komminkiert mit dem naechten Schicht durch Web-Service AnRuffe
+Anwendungslogik shicht - 
+Zu den Verantwortlichkeiten dieser Schichten gehören die folgenden:
+Setzen von Web-Services aus, um HTTP-Anrufe zu behandeln
+Kommunikation mit der Datenbank
+Gebaut mit .net CORE. Die neuste version von .Net, dass crotplatform sei.
+
+Datenbank
+Speichert alle Daten
+Kommunikation geht durch EF Core.
+Wird sehen, wie das geschieht in Kürze
+
+
+Ich habe mich für diesen Entwurf entschieden, da es leicht skalierbar ist und ist heute weit verbreitet.
+
+
+PresentationTier
+Was bedeuted SPA ?
+Spa steht für Single Page Application oder Einseitige Anwendung auf Deutch.
+Das Interessante mit SPA-Anwendungen ist, dass sie keine Seitenaufladung benötigen. Sie verlassen sich nur auf http-Aufrufe, um die Daten vom Server abzurufen. Es enthält alle der Präsentationslogik - Vorlagen, Styles und Javascript.
+
+
+
+
